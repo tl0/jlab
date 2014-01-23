@@ -2,6 +2,7 @@ package me.tl0.jlab;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -28,19 +29,9 @@ public class PlayArea extends JPanel {
         points = 0;
     }
 
-    private void refresh() {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GameWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        tick();
-        this.repaint();
-    }
-
     @Override
     public void paint(Graphics g) {
-        synchronized (letters) {
+        synchronized (letters) { // Tähän on varmaankin joku järkevämpi tapa?
             synchronized (killQueue) {
                 g.clearRect(0, 0, 512, 512);
                 g.drawString("X", 250, 250);
@@ -65,16 +56,20 @@ public class PlayArea extends JPanel {
                 killQueue.clear();
             }
         }
-        if(health < 0) {
+        if (gameEnded()) {
             g.setColor(Color.red);
             g.fillRect(0, 0, 512, 512);
             g.setColor(Color.black);
             g.drawString("HÄVISIT PELIN! :D", 220, 200);
-            g.drawString("Pisteesi: " + points, 250, 220);
+            g.drawString("Pisteesi: " + getPoints(), 250, 220);
+            g.setColor(Color.gray);
+            g.fillRect(200, 240, 100, 30);
+            g.setColor(Color.black);
+            g.drawString("Uusi peli", 220, 260);
         } else {
-            refresh();
+            tick();
         }
-        
+
     }
 
     public void killLetters(char c) {
@@ -84,10 +79,38 @@ public class PlayArea extends JPanel {
     }
 
     public void tick() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         if (letters.size() < maxLetters && (System.currentTimeMillis() - lastSpawned > 700 || letters.size() < 1)) {
             lastSpawned = System.currentTimeMillis();
             letters.add(new Letter());
         }
+
+        this.repaint();
+    }
+    
+    public List<Letter> getLetters() {
+        return Collections.unmodifiableList(letters);
+    }
+    
+    public List<Character> getKillQueue() {
+        return Collections.unmodifiableList(killQueue);
+    }
+    
+    public long getLastSpawned() {
+        return lastSpawned;
+    }
+    
+    public int getPoints() {
+        return points;
+    }
+    
+    public boolean gameEnded() {
+        return health < 1;
     }
 
 }

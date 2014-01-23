@@ -18,8 +18,8 @@ public class Letter {
         this.c = Character.toChars(random.nextInt(26) + 65)[0]; // A-Z
         y = 245;
         x = 245;
-        xX = Math.sin(random.nextDouble()*10);
-        yY = Math.sin(random.nextDouble()*10);
+        xX = Math.sin(random.nextDouble() * 10);
+        yY = Math.sin(random.nextDouble() * 10);
     }
 
     @Override
@@ -40,12 +40,29 @@ public class Letter {
         this.x += xX;
         this.y += yY;
     }
-    
+
     public boolean shouldDie() {
-        return (x < 0 || y < 0 || x > 512 || y > 512);
+        return (x < 0 || y < 0 || x > 500 || y > 500); // TODO: get PlayArea size?
     }
-    
+
     public char getChar() {
         return this.c;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }
