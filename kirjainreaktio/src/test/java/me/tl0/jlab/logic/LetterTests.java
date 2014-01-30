@@ -1,5 +1,6 @@
-package me.tl0.jlab;
+package me.tl0.jlab.logic;
 
+import me.tl0.jlab.logic.Letter;
 import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
@@ -56,7 +57,7 @@ public class LetterTests {
     public void moveDoesChangeXnY() {
         int x = l.getX();
         int y = l.getY();
-        l.move();
+        for(int i=0;i<10;i++) l.move(); // Just to make sure that it moves!
         assertTrue(x != l.getX() && y != l.getY());
     }
     

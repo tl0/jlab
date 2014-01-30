@@ -1,5 +1,6 @@
 package me.tl0.jlab;
 
+import me.tl0.jlab.gui.PlayArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

@@ -1,8 +1,9 @@
-package me.tl0.jlab;
+package me.tl0.jlab.logic;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
+import me.tl0.jlab.gui.PlayArea;
 
 public class Letter {
 
@@ -12,14 +13,20 @@ public class Letter {
     private double xX;
     private double yY;
     private Random random;
+    private PlayArea area;
 
     public Letter() {
         this.random = new Random();
         this.c = Character.toChars(random.nextInt(26) + 65)[0]; // A-Z
         y = 245;
         x = 245;
-        xX = Math.sin(random.nextDouble() * 10);
-        yY = Math.sin(random.nextDouble() * 10);
+        xX = Math.sin(random.nextDouble() * 365);
+        yY = Math.sin(random.nextDouble() * 365);
+    }
+
+    public Letter(PlayArea area) {
+        this();
+        this.area = area;
     }
 
     @Override
@@ -35,14 +42,14 @@ public class Letter {
     }
 
     public void move() {
-        yY *= (2.5 / Math.sqrt(xX * xX + yY * yY));
-        xX *= (2.5 / Math.sqrt(xX * xX + yY * yY));
+        yY *= (3.5 / Math.sqrt(xX * xX + yY * yY));
+        xX *= (3.5 / Math.sqrt(xX * xX + yY * yY));
         this.x += xX;
         this.y += yY;
     }
 
     public boolean shouldDie() {
-        return (x < 0 || y < 0 || x > 500 || y > 500); // TODO: get PlayArea size?
+        return (x < 0 || y < 0 || x > area.getWidth() - 30 || y > area.getHeight() - 30);
     }
 
     public char getChar() {

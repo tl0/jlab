@@ -1,7 +1,9 @@
-package me.tl0.jlab;
+package me.tl0.jlab.gui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import me.tl0.jlab.ClickListener;
+import me.tl0.jlab.LetterDestroyer;
 
 public class GameWindow extends JFrame {
 
@@ -32,11 +34,7 @@ public class GameWindow extends JFrame {
 
     public void newGame() {
         if (area.gameEnded()) {
-            this.getContentPane().remove(area);
-            System.out.println("!!!!");
-            area = new PlayArea();
-            this.getContentPane().add(area);
-            area.tick();
+            area.restartGame();
         }
     }
 
