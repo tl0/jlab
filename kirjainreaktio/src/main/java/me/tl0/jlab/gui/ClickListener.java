@@ -1,10 +1,15 @@
-package me.tl0.jlab;
+package me.tl0.jlab.gui;
 
 import me.tl0.jlab.gui.GameWindow;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * This class manages clicks that this program receives and handles them
+ *
+ * @author Teemu
+ */
 public class ClickListener implements MouseListener {
 
     GameWindow win;
@@ -17,6 +22,11 @@ public class ClickListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * Handles fired event correctly
+     *
+     * @param e MouseEvent
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         Point p = e.getPoint();

@@ -13,7 +13,16 @@ import javax.swing.Timer;
 import me.tl0.jlab.logic.HighscoreSaver;
 import me.tl0.jlab.logic.Letter;
 
+/**
+ * PlayArea is the area that gameplay happends.
+ *
+ * TODO More gamemodes etc?
+ *
+ * @author Teemu
+ */
 public class PlayArea extends JPanel {
+
+    private static final long serialVersionUID = 1L;
 
     List<Letter> letters;
     List<Character> killQueue;
@@ -44,9 +53,16 @@ public class PlayArea extends JPanel {
         timer.start();
     }
 
+    /**
+     * Paints PlayArea and it's letters correctly
+     *
+     * TODO Clean and refactor (split)
+     *
+     * @param g Graphics
+     */
     @Override
     public void paint(Graphics g) {
-        synchronized (letters) { // Tähän on varmaankin joku järkevämpi tapa?
+        synchronized (letters) { // XXX Tähän on varmaankin joku järkevämpi tapa?
             synchronized (killQueue) {
                 g.clearRect(0, 0, 512, 512);
                 g.drawString("X", 250, 250);
@@ -62,7 +78,11 @@ public class PlayArea extends JPanel {
                         points++;
                     }
 
-                    i.paint(g);
+                    g.setColor(Color.black);
+                    g.fillOval(i.getX(), i.getY(), 30, 30);
+                    g.setColor(Color.white);
+                    g.drawString(String.valueOf(i.getChar()), i.getX() + 12, i.getY() + 20);
+
                     i.move();
                     if (i.shouldDie()) {
                         letters.remove(i);
@@ -89,12 +109,21 @@ public class PlayArea extends JPanel {
 
     }
 
+    /**
+     * This is called by LetterDestroyer, this adds that letter to killQueue
+     *
+     * @param c
+     */
     public void killLetters(char c) {
         synchronized (killQueue) {
             killQueue.add(c);
         }
     }
 
+    /**
+     * Timer calls this method and this handles of spawning new letters and
+     * repainting PlayArea
+     */
     public void tick() {
         if (letters.size() < maxLetters && (System.currentTimeMillis() - lastSpawned > 700 || letters.size() < 1)) {
             lastSpawned = System.currentTimeMillis();
@@ -104,6 +133,9 @@ public class PlayArea extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Restarts game
+     */
     public void restartGame() {
         this.points = 0;
         this.health = 5;

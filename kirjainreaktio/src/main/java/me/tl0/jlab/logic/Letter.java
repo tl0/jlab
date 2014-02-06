@@ -1,10 +1,13 @@
 package me.tl0.jlab.logic;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.Random;
 import me.tl0.jlab.gui.PlayArea;
 
+/**
+ * Represents one letter in-game
+ *
+ * @author Teemu
+ */
 public class Letter {
 
     private char c;
@@ -24,6 +27,11 @@ public class Letter {
         yY = Math.sin(random.nextDouble() * 365);
     }
 
+    /**
+     * This is needed to get correct size for PlayArea
+     *
+     * @param area PlayArea
+     */
     public Letter(PlayArea area) {
         this();
         this.area = area;
@@ -34,13 +42,9 @@ public class Letter {
         return String.valueOf(c);
     }
 
-    public void paint(Graphics g) {
-        g.setColor(Color.black);
-        g.fillOval(x, y, 30, 30);
-        g.setColor(Color.red);
-        g.drawString(String.valueOf(c), x + 12, y + 20);
-    }
-
+    /**
+     * Moves letter along it's path
+     */
     public void move() {
         yY *= (3.5 / Math.sqrt(xX * xX + yY * yY));
         xX *= (3.5 / Math.sqrt(xX * xX + yY * yY));
@@ -48,8 +52,16 @@ public class Letter {
         this.y += yY;
     }
 
+    /**
+     * If letter is out from PlayArea, it should die (removed) If PlayArea is
+     * not defined (eg. tests), default to 512
+     *
+     * @return
+     */
     public boolean shouldDie() {
-        return (x < 0 || y < 0 || x > area.getWidth() - 30 || y > area.getHeight() - 30);
+        int w = (area instanceof PlayArea) ? area.getWidth() : 512;
+        int h = (area instanceof PlayArea) ? area.getHeight() : 512;
+        return (x < 0 || y < 0 || x > w - 30 || y > h - 30);
     }
 
     public char getChar() {

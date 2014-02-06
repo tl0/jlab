@@ -2,10 +2,15 @@ package me.tl0.jlab.gui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import me.tl0.jlab.ClickListener;
-import me.tl0.jlab.LetterDestroyer;
 
+/**
+ * GameWindow is the main component that is created by Main-class
+ *
+ * @author Teemu
+ */
 public class GameWindow extends JFrame {
+
+    private static final long serialVersionUID = 1L;
 
     PlayArea area;
     LetterDestroyer killer;
@@ -20,7 +25,7 @@ public class GameWindow extends JFrame {
 
     public void run() {
         this.setTitle("JavaLabra");
-        this.setPreferredSize(new Dimension(512, 512));
+        this.setPreferredSize(new Dimension(512, 512)); // TODO Muitakin kokoja?
 
         this.setResizable(false);
         this.getContentPane().add(area);
@@ -32,6 +37,9 @@ public class GameWindow extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Only restart game, if game has ended
+     */
     public void newGame() {
         if (area.gameEnded()) {
             area.restartGame();

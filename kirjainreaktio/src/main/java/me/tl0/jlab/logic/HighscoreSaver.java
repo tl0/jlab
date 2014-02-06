@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+/**
+ * Keeps your highscore saved and updated
+ *
+ * @author Teemu
+ */
 public class HighscoreSaver {
 
     Writer writer;
@@ -17,7 +22,7 @@ public class HighscoreSaver {
 
     public HighscoreSaver() {
         file = new File("hs.txt");
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException ex) {
@@ -25,9 +30,13 @@ public class HighscoreSaver {
         }
     }
 
+    /**
+     * Saves given highscore to file
+     *
+     * @param score
+     */
     public void saveScore(int score) {
         if (getHScore() < score) {
-            System.out.println("SAVE");
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
                 writer.write(String.valueOf(score));
@@ -37,10 +46,14 @@ public class HighscoreSaver {
         }
     }
 
+    /**
+     * Gets highscore from file and returns it
+     *
+     * @return highscore
+     */
     public int getHScore() {
         int hs = 0;
         if (file.exists()) {
-            System.out.println("READ");
             try {
                 br = new BufferedReader(new FileReader(file));
                 hs = Integer.valueOf(br.readLine());

@@ -1,9 +1,13 @@
-package me.tl0.jlab;
+package me.tl0.jlab.gui;
 
-import me.tl0.jlab.gui.PlayArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * This listener handles typing
+ *
+ * @author Teemu
+ */
 public class LetterDestroyer implements KeyListener {
 
     PlayArea area;
@@ -12,6 +16,12 @@ public class LetterDestroyer implements KeyListener {
         this.area = area;
     }
 
+    /**
+     * Handles fired event correctly and adds it to PlayArea's killQueue waiting
+     * to be processed
+     *
+     * @param e KeyEvent
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int i = e.getKeyCode();
@@ -22,10 +32,8 @@ public class LetterDestroyer implements KeyListener {
     }
 
     public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void keyReleased(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
