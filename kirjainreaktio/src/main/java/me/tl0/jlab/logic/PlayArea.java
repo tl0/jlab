@@ -10,7 +10,8 @@ import javax.swing.Timer;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
- *
+ * PlayArea
+ * 
  * @author Teemu
  */
 public class PlayArea {
@@ -27,7 +28,7 @@ public class PlayArea {
     PlayAreaGUI area;
 
     public PlayArea() {
-        
+
         this.area = new PlayAreaGUI(this);
         letters = Collections.synchronizedList(new CopyOnWriteArrayList<Letter>());
         killQueue = Collections.synchronizedList(new CopyOnWriteArrayList<Character>());
@@ -63,11 +64,8 @@ public class PlayArea {
      * repainting PlayArea
      */
     public void tick() {
-        if (letters.size() < maxLetters && (System.currentTimeMillis() - lastSpawned > 700 || letters.size() < 1)) {
-            lastSpawned = System.currentTimeMillis();
-            letters.add(new Letter(area));
-        }
-
+        spawnLetter();
+        
         synchronized (letters) { // XXX Tähän on varmaankin joku järkevämpi tapa?
             synchronized (killQueue) {
                 Iterator<Letter> it = letters.iterator();
@@ -87,12 +85,22 @@ public class PlayArea {
                 killQueue.clear();
             }
         }
-        
-        if(gameEnded()) {
+
+        if (gameEnded()) {
             timer.stop();
         }
-        
+
         area.repaint();
+    }
+    
+    /**
+     * Creates new Letter
+     */
+    public void spawnLetter() {
+        if (getLetterCount() < maxLetters && (System.currentTimeMillis() - lastSpawned > 700 || letters.size() < 1)) {
+            lastSpawned = System.currentTimeMillis();
+            letters.add(new Letter(area));
+        }
     }
 
     /**
@@ -106,9 +114,24 @@ public class PlayArea {
         killQueue.clear();
         timer.start();
     }
+    
+    /**
+     * Starts/Stops timer
+     */
+    public void pauseGame() {
+        if(timer.isRunning()) {
+            timer.stop();
+        } else {
+            timer.start();
+        }
+    }
 
     public List<Letter> getLetters() {
         return Collections.unmodifiableList(letters);
+    }
+    
+    public int getLetterCount() {
+        return letters.size();
     }
 
     public void removeLetter(Letter letter) {
@@ -139,7 +162,7 @@ public class PlayArea {
     public int getHS() {
         return hscore;
     }
-    
+
     public PlayAreaGUI getGUI() {
         return area;
     }

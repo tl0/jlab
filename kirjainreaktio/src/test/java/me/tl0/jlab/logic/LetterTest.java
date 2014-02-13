@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class LetterTests {
+public class LetterTest {
 
     static ArrayList<Character> kirjaimet;
     static Letter l;
@@ -55,7 +55,7 @@ public class LetterTests {
     @Test
     public void moveDoesChangeY() {
         int y = l.getY();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             l.move(); // Just to make sure that it moves!
         }
         assertTrue(y != l.getY());
@@ -64,7 +64,7 @@ public class LetterTests {
     @Test
     public void moveDoesChangeX() {
         int x = l.getX();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             l.move(); // Just to make sure that it moves!
         }
         assertTrue(x != l.getX());
