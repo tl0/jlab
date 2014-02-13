@@ -20,8 +20,8 @@ public class MenuWindow extends JPanel {
         this.setLayout(new BoxLayout(this, X_AXIS));
 
         this.setVisible(true);
-        PlayArea p1 = new PlayArea();
-        this.add(new PlayArea(), BoxLayout.X_AXIS);
+        //PlayAreaGUI p1 = new PlayAreaGUI();
+        //this.add(new PlayAreaGUI(), BoxLayout.X_AXIS);
     }
 
     @Override

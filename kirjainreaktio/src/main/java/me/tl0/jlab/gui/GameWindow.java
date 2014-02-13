@@ -2,6 +2,7 @@ package me.tl0.jlab.gui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import me.tl0.jlab.logic.PlayArea;
 
 /**
  * GameWindow is the main component that is created by Main-class
@@ -28,7 +29,7 @@ public class GameWindow extends JFrame {
         this.setPreferredSize(new Dimension(512, 512)); // TODO Muitakin kokoja?
 
         this.setResizable(false);
-        this.getContentPane().add(area);
+        this.getContentPane().add(area.getGUI());
         this.addKeyListener(killer);
         this.addMouseListener(klikker);
 

@@ -2,6 +2,7 @@ package me.tl0.jlab.gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import me.tl0.jlab.logic.PlayArea;
 
 /**
  * This listener handles typing
@@ -17,8 +18,8 @@ public class LetterDestroyer implements KeyListener {
     }
 
     /**
-     * Handles fired event correctly and adds it to PlayArea's killQueue waiting
-     * to be processed
+     * Handles fired event correctly and adds it to PlayArea's killQueue
+     * waiting to be processed
      *
      * @param e KeyEvent
      */

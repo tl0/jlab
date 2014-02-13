@@ -1,7 +1,7 @@
 package me.tl0.jlab.logic;
 
 import java.util.Random;
-import me.tl0.jlab.gui.PlayArea;
+import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
  * Represents one letter in-game
@@ -16,7 +16,7 @@ public class Letter {
     private double xX;
     private double yY;
     private Random random;
-    private PlayArea area;
+    private PlayAreaGUI area;
 
     public Letter() {
         this.random = new Random();
@@ -28,11 +28,11 @@ public class Letter {
     }
 
     /**
-     * This is needed to get correct size for PlayArea
+     * This is needed to get correct size for PlayAreaGUI
      *
-     * @param area PlayArea
+     * @param area PlayAreaGUI
      */
-    public Letter(PlayArea area) {
+    public Letter(PlayAreaGUI area) {
         this();
         this.area = area;
     }
@@ -53,14 +53,14 @@ public class Letter {
     }
 
     /**
-     * If letter is out from PlayArea, it should die (removed) If PlayArea is
+     * If letter is out from PlayAreaGUI, it should die (removed) If PlayAreaGUI is
      * not defined (eg. tests), default to 512
      *
      * @return
      */
     public boolean shouldDie() {
-        int w = (area instanceof PlayArea) ? area.getWidth() : 512;
-        int h = (area instanceof PlayArea) ? area.getHeight() : 512;
+        int w = (area instanceof PlayAreaGUI) ? area.getWidth() : 512;
+        int h = (area instanceof PlayAreaGUI) ? area.getHeight() : 512;
         return (x < 0 || y < 0 || x > w - 30 || y > h - 30);
     }
 
