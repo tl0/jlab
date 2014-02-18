@@ -72,7 +72,7 @@ public class PlayArea {
                 while (it.hasNext()) {
                     Letter i = it.next();
                     if (killQueue.contains(i.getChar())) {
-                        letters.remove(i);
+                        removeLetter(i);
                     }
 
                     i.move();
@@ -88,6 +88,7 @@ public class PlayArea {
 
         if (gameEnded()) {
             timer.stop();
+            hs.saveScore(points);
         }
 
         area.repaint();
