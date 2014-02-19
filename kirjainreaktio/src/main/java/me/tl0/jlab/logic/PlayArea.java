@@ -6,18 +6,36 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
  * PlayArea
- * 
+ *
  * @author Teemu
  */
 public class PlayArea {
 
-    List<Letter> letters;
-    List<Character> killQueue;
+    enum Mode {
+
+        LETTER(Letter.class),
+        NUMBER(Number.class),
+        WORD(Word.class);
+
+        Mode(Class c) {
+            this.c = c;
+        }
+        protected Class c;
+
+        public Class getJuttu() {
+            return this.c;
+        }
+    }
+
+    List<PlayObject> letters;
+    List<Object> killQueue;
     int maxLetters;
     long lastSpawned;
     int health;
@@ -26,13 +44,15 @@ public class PlayArea {
     Timer timer;
     HighscoreSaver hs;
     PlayAreaGUI area;
+    Mode mode;
 
     public PlayArea() {
 
+        this.mode = Mode.LETTER; // Game Mode :D
         this.area = new PlayAreaGUI(this);
-        letters = Collections.synchronizedList(new CopyOnWriteArrayList<Letter>());
-        killQueue = Collections.synchronizedList(new CopyOnWriteArrayList<Character>());
-        maxLetters = 9;
+        letters = Collections.synchronizedList(new CopyOnWriteArrayList<PlayObject>());
+        killQueue = Collections.synchronizedList(new CopyOnWriteArrayList<Object>());
+        maxLetters = 10;
         lastSpawned = 0;
         health = 5;
         points = 0;
@@ -53,9 +73,14 @@ public class PlayArea {
      *
      * @param c
      */
-    public void killLetters(char c) {
+    public void killLetters(Object c) { // XXX WORD support
         synchronized (killQueue) {
             killQueue.add(c);
+            if (mode == Mode.WORD) {
+                for (PlayObject i : letters) {
+                    i.addTypedLetter((char) c);
+                }
+            }
         }
     }
 
@@ -65,13 +90,13 @@ public class PlayArea {
      */
     public void tick() {
         spawnLetter();
-        
+
         synchronized (letters) { // XXX Tähän on varmaankin joku järkevämpi tapa?
             synchronized (killQueue) {
-                Iterator<Letter> it = letters.iterator();
+                Iterator<PlayObject> it = letters.iterator();
                 while (it.hasNext()) {
-                    Letter i = it.next();
-                    if (killQueue.contains(i.getChar())) {
+                    PlayObject i = it.next();
+                    if (killQueue.contains(i.getContent())) {
                         removeLetter(i);
                     }
 
@@ -80,6 +105,7 @@ public class PlayArea {
                     if (i.shouldDie()) {
                         letters.remove(i);
                         health--;
+                        area.flashRed();
                     }
                 }
                 killQueue.clear();
@@ -93,14 +119,19 @@ public class PlayArea {
 
         area.repaint();
     }
-    
+
     /**
      * Creates new Letter
      */
     public void spawnLetter() {
-        if (getLetterCount() < maxLetters && (System.currentTimeMillis() - lastSpawned > 700 || letters.size() < 1)) {
+        if (getLetterCount() < maxLetters && (System.currentTimeMillis() - lastSpawned > 753 || letters.size() < 1)) {
             lastSpawned = System.currentTimeMillis();
-            letters.add(new Letter(area));
+            try {
+                //letters.add(new Letter(area));
+                letters.add((PlayObject) mode.getJuttu().getConstructor().newInstance());
+            } catch (Exception ex) {
+                Logger.getLogger(PlayArea.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -115,32 +146,32 @@ public class PlayArea {
         killQueue.clear();
         timer.start();
     }
-    
+
     /**
      * Starts/Stops timer
      */
     public void pauseGame() {
-        if(timer.isRunning()) {
+        if (timer.isRunning()) {
             timer.stop();
         } else {
             timer.start();
         }
     }
 
-    public List<Letter> getLetters() {
+    public List<PlayObject> getLetters() {
         return Collections.unmodifiableList(letters);
     }
-    
+
     public int getLetterCount() {
         return letters.size();
     }
 
-    public void removeLetter(Letter letter) {
+    public void removeLetter(PlayObject letter) {
         points++;
         letters.remove(letter);
     }
 
-    public List<Character> getKillQueue() {
+    public List<Object> getKillQueue() {
         return Collections.unmodifiableList(killQueue);
     }
 

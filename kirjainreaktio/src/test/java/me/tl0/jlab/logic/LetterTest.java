@@ -45,7 +45,7 @@ public class LetterTest {
     @Test
     public void containsAlphabet() {
         for (int i = 0; i < 100; i++) {
-            if (!kirjaimet.contains(new Letter().getChar())) {
+            if (!kirjaimet.contains(new Letter().getContent())) {
                 assertTrue(false);
             }
         }

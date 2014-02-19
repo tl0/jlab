@@ -1,26 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package me.tl0.jlab.logic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.lang.Byte;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
- * Represents one letter in-game
  *
  * @author Teemu
  */
-public class Letter implements PlayObject {
+public class Word implements PlayObject {
 
-    char c;
-    Random random;
+    private String c;
     private int y;
     private int x;
     private double xX;
     private double yY;
+    private Random random;
     private PlayAreaGUI area;
+    private ArrayList<String> words;
+    private String typed;
+    private int width;
 
-    public Letter() {
+    public Word() {
+        words = new ArrayList<String>(Arrays.asList("CS", "Helsinki", "Finland"));
         this.random = new Random();
-        this.c = Character.toChars(random.nextInt(26) + 65)[0]; // A-Z
+        this.c = words.get(random.nextInt(words.size()));
+        this.typed = c.toUpperCase();
         y = 245;
         x = 245;
         xX = Math.sin(random.nextDouble() * 365);
@@ -32,9 +44,13 @@ public class Letter implements PlayObject {
      *
      * @param area PlayAreaGUI
      */
-    public Letter(PlayAreaGUI area) {
+    public Word(PlayAreaGUI area) {
         this();
         this.area = area;
+    }
+
+    public void addTypedLetter(char input) {
+        typed = typed.replaceFirst(String.valueOf(input).toUpperCase(), "");
     }
 
     @Override
@@ -54,8 +70,8 @@ public class Letter implements PlayObject {
     }
 
     /**
-     * If letter is out from PlayAreaGUI, it should die (removed) If PlayAreaGUI is
-     * not defined (eg. tests), default to 512
+     * If letter is out from PlayAreaGUI, it should die (removed) If PlayAreaGUI
+     * is not defined (eg. tests), default to 512
      *
      * @return
      */
@@ -63,16 +79,12 @@ public class Letter implements PlayObject {
     public boolean shouldDie() {
         int w = (area instanceof PlayAreaGUI) ? area.getWidth() : 512;
         int h = (area instanceof PlayAreaGUI) ? area.getHeight() : 512;
-        return (x < 0 || y < 0 || x > w - 30 || y > h - 30);
+        return typed.isEmpty() || (x < 0 || y < 0 || x > w - 30 || y > h - 30);
     }
 
     @Override
     public Object getContent() {
-        return this.c;
-    }
-    
-    public void setContent(char c) {
-        this.c = c;
+        return c.toUpperCase();
     }
 
     @Override
@@ -97,12 +109,6 @@ public class Letter implements PlayObject {
 
     @Override
     public int getWidth() {
-        return 30;
+        return (int) (30 + getContent().toString().length() * 5.5);
     }
-
-    @Override
-    public void addTypedLetter(char input) {
-        // We wont need this!
-    }
-
 }
