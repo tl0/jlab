@@ -105,4 +105,14 @@ public class Letter implements PlayObject {
         // We wont need this!
     }
 
+    @Override
+    public Object getTypedContent() {
+        return null;
+    }
+
+    @Override
+    public int getValue() {
+        return 1;
+    }
+
 }

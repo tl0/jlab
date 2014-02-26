@@ -16,10 +16,12 @@ public interface PlayObject {
     public void move();
     public boolean shouldDie();
     public Object getContent();
+    public int getValue(); // Valuella tarkoitan pistearvoa, en sisältöä..
     public int getWidth();
     public int getX();
     public int getY();
     public void setX(int x);
     public void setY(int y);
     public void addTypedLetter(char input); // Just for words ..
+    public Object getTypedContent(); // Just for words .. aswell ..
 }

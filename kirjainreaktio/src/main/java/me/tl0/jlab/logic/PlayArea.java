@@ -18,22 +18,6 @@ import me.tl0.jlab.gui.PlayAreaGUI;
  */
 public class PlayArea {
 
-    enum Mode {
-
-        LETTER(Letter.class),
-        NUMBER(Number.class),
-        WORD(Word.class);
-
-        Mode(Class c) {
-            this.c = c;
-        }
-        protected Class c;
-
-        public Class getJuttu() {
-            return this.c;
-        }
-    }
-
     List<PlayObject> letters;
     List<Object> killQueue;
     int maxLetters;
@@ -48,7 +32,7 @@ public class PlayArea {
 
     public PlayArea() {
 
-        this.mode = Mode.LETTER; // Game Mode :D
+        this.mode = Mode.WORD; // Game Mode :D
         this.area = new PlayAreaGUI(this);
         letters = Collections.synchronizedList(new CopyOnWriteArrayList<PlayObject>());
         killQueue = Collections.synchronizedList(new CopyOnWriteArrayList<Object>());
@@ -96,7 +80,7 @@ public class PlayArea {
                 Iterator<PlayObject> it = letters.iterator();
                 while (it.hasNext()) {
                     PlayObject i = it.next();
-                    if (killQueue.contains(i.getContent())) {
+                    if (killQueue.contains(i.getContent()) || i.getContent().toString().equalsIgnoreCase(i.getTypedContent().toString())) {
                         removeLetter(i);
                     }
 
@@ -167,7 +151,7 @@ public class PlayArea {
     }
 
     public void removeLetter(PlayObject letter) {
-        points++;
+        points += letter.getValue();
         letters.remove(letter);
     }
 
@@ -197,5 +181,9 @@ public class PlayArea {
 
     public PlayAreaGUI getGUI() {
         return area;
+    }
+    
+    public Mode getMode() {
+        return mode;
     }
 }

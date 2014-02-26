@@ -8,7 +8,6 @@ package me.tl0.jlab.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.lang.Byte;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
@@ -29,10 +28,10 @@ public class Word implements PlayObject {
     private int width;
 
     public Word() {
-        words = new ArrayList<String>(Arrays.asList("CS", "Helsinki", "Finland"));
+        words = new ArrayList<String>(Arrays.asList("CS", "auto", "suomi", "HY", "helsinki")); // Words
         this.random = new Random();
         this.c = words.get(random.nextInt(words.size()));
-        this.typed = c.toUpperCase();
+        this.typed = "";
         y = 245;
         x = 245;
         xX = Math.sin(random.nextDouble() * 365);
@@ -49,8 +48,11 @@ public class Word implements PlayObject {
         this.area = area;
     }
 
+    @Override
     public void addTypedLetter(char input) {
-        typed = typed.replaceFirst(String.valueOf(input).toUpperCase(), "");
+        if (Character.toUpperCase(c.charAt(typed.length())) == Character.toUpperCase(input)) {
+            typed = typed.concat(String.valueOf(input));
+        }
     }
 
     @Override
@@ -79,12 +81,17 @@ public class Word implements PlayObject {
     public boolean shouldDie() {
         int w = (area instanceof PlayAreaGUI) ? area.getWidth() : 512;
         int h = (area instanceof PlayAreaGUI) ? area.getHeight() : 512;
-        return typed.isEmpty() || (x < 0 || y < 0 || x > w - 30 || y > h - 30);
+        return (x < 0 || y < 0 || x > w - 30 || y > h - 30);
     }
 
     @Override
     public Object getContent() {
         return c.toUpperCase();
+    }
+    
+    @Override
+    public Object getTypedContent() {
+        return typed.toUpperCase();
     }
 
     @Override
@@ -110,5 +117,10 @@ public class Word implements PlayObject {
     @Override
     public int getWidth() {
         return (int) (30 + getContent().toString().length() * 5.5);
+    }
+
+    @Override
+    public int getValue() {
+        return c.length();
     }
 }

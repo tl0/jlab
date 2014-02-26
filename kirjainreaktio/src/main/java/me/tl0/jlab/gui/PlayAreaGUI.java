@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import javax.swing.JPanel;
 import me.tl0.jlab.logic.Letter;
+import me.tl0.jlab.logic.Mode;
 import me.tl0.jlab.logic.PlayArea;
 import me.tl0.jlab.logic.PlayObject;
 
@@ -72,6 +73,10 @@ public class PlayAreaGUI extends JPanel {
                     g.fillOval(i.getX(), i.getY(), i.getWidth(), 30);
                     g.setColor(Color.white);
                     g.drawString(String.valueOf(i.getContent()), i.getX() + 12, i.getY() + 20);
+                    if(area.getMode() == Mode.WORD) { // drawString to draw different color to show current progress ! :)
+                        g.setColor(Color.green);
+                        g.drawString(String.valueOf(i.getTypedContent()), i.getX() + 12, i.getY() + 20);
+                    }
                 }
             }
         }
