@@ -21,8 +21,8 @@ public class Letter implements PlayObject {
     public Letter() {
         this.random = new Random();
         this.c = Character.toChars(random.nextInt(26) + 65)[0]; // A-Z
-        y = 245;
-        x = 245;
+        x = 512 / 2;
+        y = 512 / 2;
         xX = Math.sin(random.nextDouble() * 365);
         yY = Math.sin(random.nextDouble() * 365);
     }
@@ -47,15 +47,15 @@ public class Letter implements PlayObject {
      */
     @Override
     public void move() {
-        yY *= (3.5 / Math.sqrt(xX * xX + yY * yY));
-        xX *= (3.5 / Math.sqrt(xX * xX + yY * yY));
+        xX *= (3.5 / Math.sqrt(xX * xX + yY * yY)) + area.getWidth() - 512;
+        yY *= (3.5 / Math.sqrt(xX * xX + yY * yY)) + area.getHeight() - 512;
         this.x += xX;
         this.y += yY;
     }
 
     /**
-     * If letter is out from PlayAreaGUI, it should die (removed) If PlayAreaGUI is
-     * not defined (eg. tests), default to 512
+     * If letter is out from PlayAreaGUI, it should die (removed) If PlayAreaGUI
+     * is not defined (eg. tests), default to 512
      *
      * @return
      */
@@ -70,7 +70,7 @@ public class Letter implements PlayObject {
     public Object getContent() {
         return this.c;
     }
-    
+
     public void setContent(char c) {
         this.c = c;
     }
@@ -113,6 +113,14 @@ public class Letter implements PlayObject {
     @Override
     public int getValue() {
         return 1;
+    }
+
+    @Override
+    public void setArea(PlayAreaGUI area) {
+        this.area = area;
+
+        x = (area instanceof PlayAreaGUI) ? area.getWidth() / 2 : 512 / 2;
+        y = (area instanceof PlayAreaGUI) ? area.getHeight() / 2 : 512 / 2;
     }
 
 }

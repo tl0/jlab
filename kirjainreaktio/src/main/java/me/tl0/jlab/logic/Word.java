@@ -88,7 +88,7 @@ public class Word implements PlayObject {
     public Object getContent() {
         return c.toUpperCase();
     }
-    
+
     @Override
     public Object getTypedContent() {
         return typed.toUpperCase();
@@ -122,5 +122,13 @@ public class Word implements PlayObject {
     @Override
     public int getValue() {
         return c.length();
+    }
+
+    @Override
+    public void setArea(PlayAreaGUI area) {
+        this.area = area;
+
+        x = (area instanceof PlayAreaGUI) ? area.getWidth() / 2 : 512 / 2;
+        y = (area instanceof PlayAreaGUI) ? area.getHeight() / 2 : 512 / 2;
     }
 }

@@ -1,13 +1,12 @@
 package me.tl0.jlab.logic;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Timer;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
@@ -29,6 +28,7 @@ public class PlayArea {
     HighscoreSaver hs;
     PlayAreaGUI area;
     Mode mode;
+    Dimension oldSize;
 
     public PlayArea() {
 
@@ -50,6 +50,7 @@ public class PlayArea {
         });
         timer.setRepeats(true);
         timer.start();
+        oldSize = area.getSize();
     }
 
     /**
@@ -101,6 +102,8 @@ public class PlayArea {
             hs.saveScore(points);
         }
 
+        oldSize = area.getSize();
+
         area.repaint();
     }
 
@@ -111,10 +114,10 @@ public class PlayArea {
         if (getLetterCount() < maxLetters && (System.currentTimeMillis() - lastSpawned > 753 || letters.size() < 1)) {
             lastSpawned = System.currentTimeMillis();
             try {
-                //letters.add(new Letter(area));
-                letters.add((PlayObject) mode.getJuttu().getConstructor().newInstance());
+                PlayObject temp = (PlayObject) mode.getJuttu().getConstructor().newInstance();
+                temp.setArea(area);
+                letters.add(temp);
             } catch (Exception ex) {
-                Logger.getLogger(PlayArea.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -139,6 +142,22 @@ public class PlayArea {
             timer.stop();
         } else {
             timer.start();
+        }
+    }
+
+    public void pauseGame(boolean paused) {
+    }
+
+    public void resized(Dimension newSize) {
+        int scaleX = (int) ((newSize.getWidth() - oldSize.getWidth()) * 0.05);
+        int scaleY = (int) ((newSize.getHeight() - oldSize.getHeight()) * 0.05);
+        synchronized (letters) {
+            Iterator<PlayObject> it = letters.iterator();
+            while (it.hasNext()) {
+                PlayObject i = it.next();
+                i.setX(i.getX() + scaleX);
+                i.setY(i.getY() + scaleY);
+            }
         }
     }
 
@@ -182,7 +201,7 @@ public class PlayArea {
     public PlayAreaGUI getGUI() {
         return area;
     }
-    
+
     public Mode getMode() {
         return mode;
     }

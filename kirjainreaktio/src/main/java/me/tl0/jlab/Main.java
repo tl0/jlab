@@ -1,7 +1,7 @@
 package me.tl0.jlab;
 
-import me.tl0.jlab.gui.GameWindow;
 import javax.swing.SwingUtilities;
+import me.tl0.jlab.gui.GameWindow;
 
 /**
  * Just launches GameWindow

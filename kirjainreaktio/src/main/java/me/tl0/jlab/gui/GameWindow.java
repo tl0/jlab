@@ -25,15 +25,17 @@ public class GameWindow extends JFrame {
     }
 
     public void run() {
-        this.setTitle("JavaLabra");
+        this.setTitle("Kirjainreaktiojuttu");
         this.setPreferredSize(new Dimension(512, 512)); // TODO Muitakin kokoja?
 
-        this.setResizable(false);
+        //this.setResizable(false);
+        this.setMinimumSize(new Dimension(512, 512));
         this.getContentPane().add(area.getGUI());
         this.addKeyListener(killer);
         this.addMouseListener(klikker);
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocation(100, 100);
         this.pack();
         this.setVisible(true);
     }

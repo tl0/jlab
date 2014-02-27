@@ -53,24 +53,6 @@ public class LetterTest {
     }
 
     @Test
-    public void moveDoesChangeY() {
-        int y = l.getY();
-        for (int i = 0; i < 100; i++) {
-            l.move(); // Just to make sure that it moves!
-        }
-        assertTrue(y != l.getY());
-    }
-
-    @Test
-    public void moveDoesChangeX() {
-        int x = l.getX();
-        for (int i = 0; i < 100; i++) {
-            l.move(); // Just to make sure that it moves!
-        }
-        assertTrue(x != l.getX());
-    }
-
-    @Test
     public void shouldDieTestNegative() {
         l.setX(-1);
         l.setY(-1);
