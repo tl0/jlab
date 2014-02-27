@@ -47,8 +47,8 @@ public class Letter implements PlayObject {
      */
     @Override
     public void move() {
-        xX *= (3.5 / Math.sqrt(xX * xX + yY * yY)) + area.getWidth() - 512;
-        yY *= (3.5 / Math.sqrt(xX * xX + yY * yY)) + area.getHeight() - 512;
+        xX *= (3.5 / Math.sqrt(xX * xX + yY * yY));
+        yY *= (3.5 / Math.sqrt(xX * xX + yY * yY));
         this.x += xX;
         this.y += yY;
     }
@@ -107,7 +107,7 @@ public class Letter implements PlayObject {
 
     @Override
     public Object getTypedContent() {
-        return null;
+        return "";
     }
 
     @Override
