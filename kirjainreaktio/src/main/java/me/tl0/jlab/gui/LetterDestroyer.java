@@ -27,7 +27,7 @@ public class LetterDestroyer implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyChar() == ' ') {
             area.pauseGame();
-        } else {
+        } else if (area.isRunning()) {
             int i = e.getKeyCode();
             if (i > 96) {
                 i -= 32;
