@@ -88,6 +88,10 @@ public class PlayAreaGUI extends JPanel {
                     }
                 }
             }
+            if (!area.isRunning()) {
+                g.setColor(Color.blue);
+                g.drawString("!!! PAUSED !!!", this.getWidth() / 2 - 30, this.getHeight() / 2 - 15);
+            }
         }
     }
 

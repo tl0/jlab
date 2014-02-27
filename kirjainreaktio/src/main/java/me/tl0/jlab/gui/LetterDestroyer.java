@@ -18,18 +18,22 @@ public class LetterDestroyer implements KeyListener {
     }
 
     /**
-     * Handles fired event correctly and adds it to PlayArea's killQueue
-     * waiting to be processed
+     * Handles fired event correctly and adds it to PlayArea's killQueue waiting
+     * to be processed
      *
      * @param e KeyEvent
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        int i = e.getKeyCode();
-        if (i > 96) {
-            i -= 32;
+        if (e.getKeyChar() == ' ') {
+            area.pauseGame();
+        } else {
+            int i = e.getKeyCode();
+            if (i > 96) {
+                i -= 32;
+            }
+            area.killLetters(Character.toChars(i)[0]);
         }
-        area.killLetters(Character.toChars(i)[0]);
     }
 
     public void keyTyped(KeyEvent e) {

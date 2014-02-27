@@ -138,14 +138,20 @@ public class PlayArea {
      * Starts/Stops timer
      */
     public void pauseGame() {
-        if (timer.isRunning()) {
+        pauseGame(timer.isRunning());
+    }
+
+    public void pauseGame(boolean pause) {
+        if (pause) {
             timer.stop();
         } else {
             timer.start();
         }
+        area.repaint();
     }
 
-    public void pauseGame(boolean paused) {
+    public boolean isRunning() {
+        return timer.isRunning();
     }
 
     public void resized(Dimension newSize) {
