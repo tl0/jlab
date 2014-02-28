@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.Arrays;
 import java.util.Iterator;
 import javax.swing.JPanel;
 import me.tl0.jlab.logic.Mode;
@@ -51,9 +50,11 @@ public class PlayAreaGUI extends JPanel {
             g.setColor(Color.red);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
             g.setColor(Color.black);
-            g.drawString("Peli loppui!", 200, 200);
-            g.drawString("Pisteesi: " + area.getPoints(), 220, 220);
-            g.drawString("Highscore: " + area.getHS(), 220, 240);
+            g.drawString("Game over :(", this.getWidth() / 2 - 40, this.getHeight() / 2);
+            g.drawString("Your score: " + area.getPoints(), this.getWidth() / 2 - 40, this.getHeight() / 2 + 20);
+            g.drawString("Highscore: " + area.getHS(), this.getWidth() / 2 - 40, this.getHeight() / 2 + 40);
+            g.setColor(Color.white);
+            g.drawString("Click anywhere to return menu!", this.getWidth() / 2 - 100, this.getHeight() / 2 + 60);
         } else {
             synchronized (area.getLetters()) { // XXX Tähän on varmaankin joku järkevämpi tapa?
                 g.clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -63,8 +64,6 @@ public class PlayAreaGUI extends JPanel {
                     redStage -= 10;
                 }
                 g.setColor(Color.black);
-                g.drawString(Arrays.toString(area.getKillQueue().toArray()), 20, 70);
-                g.drawString(Arrays.toString(area.getLetters().toArray()), 22, 80);
                 g.drawString("X", this.getWidth() / 2, this.getHeight() / 2);
                 g.drawString("<3 jäljellä " + area.getHealth(), 20, 20);
                 g.drawString("Pisteesi: " + area.getPoints(), 20, 30);

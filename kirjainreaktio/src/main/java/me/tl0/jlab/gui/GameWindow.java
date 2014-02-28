@@ -70,8 +70,10 @@ public class GameWindow extends JFrame {
 
     public void showMenu() {
         CardLayout cl = (CardLayout) (cards.getLayout());
-        cl.show(cards, "menu");
-        this.revalidate();
+        if (area.gameEnded()) {
+            cl.show(cards, "menu");
+            this.revalidate();
+        }
     }
 
     /**

@@ -29,10 +29,7 @@ public class ClickListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         Point p = e.getPoint();
-        // 200, 240, 100, 30
-        if (p.x > 200 && p.x < 300 && p.y > 265 && p.y < 300) {
-            win.newGame();
-        }
+        win.showMenu();
     }
 
     @Override
