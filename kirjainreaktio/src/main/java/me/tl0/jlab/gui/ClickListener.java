@@ -1,9 +1,10 @@
 package me.tl0.jlab.gui;
 
-import me.tl0.jlab.gui.GameWindow;
 import java.awt.Point;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 /**
  * This class manages clicks that this program receives and handles them
@@ -29,6 +30,10 @@ public class ClickListener implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
+        KeyListener[] wls = (KeyListener[]) (win.getListeners(KeyListener.class));
+        win.getComponents();
+        System.out.println("asd" + Arrays.toString(wls));
+        System.out.println("asd" + win.getComponents());
         Point p = e.getPoint();
         // 200, 240, 100, 30
         if (p.x > 200 && p.x < 300 && p.y > 265 && p.y < 300) {

@@ -7,12 +7,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import me.tl0.jlab.logic.Mode;
 
 /**
  * MenuWindow that is used to launch game.. later..
@@ -25,19 +25,15 @@ public class MenuWindow extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private ActionListener action;
+    private GameWindow window;
 
     public MenuWindow() {
-
-        action = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "This language just gets better and better!");
-            }
-        };
-
         createElements();
+    }
+
+    public MenuWindow(GameWindow gw) {
+        this();
+        this.window = gw;
     }
 
     public void createElements() {
@@ -49,20 +45,25 @@ public class MenuWindow extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 100, 0, 100);
-        this.add(createButton("XXX"));
+        this.add(createButton("Number", Mode.NUMBER));
 
-        this.add(createButton("YYY"));
+        this.add(createButton("Letter", Mode.LETTER));
 
         gbc.gridx++;
-        this.add(createButton("ZZZ"));
+        this.add(createButton("Word", Mode.WORD));
 
         this.add(new JPanel(), gbc);
         setVisible(true);
     }
 
-    public JButton createButton(String text) {
+    public JButton createButton(String text, final Mode gamemode) {
         JButton temp = new JButton(text);
-        temp.addActionListener(action);
+        temp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                window.startGame(gamemode);
+            }
+        });
         temp.setForeground(Color.BLACK);
         temp.setBackground(new Color(0, 127, 255));
         Border line = new LineBorder(Color.BLACK);

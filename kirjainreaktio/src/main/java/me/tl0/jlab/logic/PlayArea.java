@@ -32,7 +32,7 @@ public class PlayArea {
 
     public PlayArea() {
 
-        this.mode = Mode.WORD; // Game Mode :D
+        this.mode = Mode.LETTER; // Game Mode :D
         this.area = new PlayAreaGUI(this);
         letters = Collections.synchronizedList(new CopyOnWriteArrayList<PlayObject>());
         killQueue = Collections.synchronizedList(new CopyOnWriteArrayList<Object>());
@@ -51,6 +51,12 @@ public class PlayArea {
         timer.setRepeats(true);
         timer.start();
         oldSize = area.getSize();
+    }
+
+    public PlayArea(Mode gamemode) {
+        this();
+        this.mode = gamemode;
+        restartGame();
     }
 
     /**
@@ -152,6 +158,11 @@ public class PlayArea {
 
     public boolean isRunning() {
         return timer.isRunning();
+    }
+
+    public void setGamemode(Mode gm) {
+        this.mode = gm;
+        restartGame();
     }
 
     public void resized(Dimension newSize) {

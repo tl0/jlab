@@ -25,6 +25,8 @@ public class LetterDestroyer implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
+
+        System.out.println("SD");
         if (e.getKeyChar() == ' ') {
             area.pauseGame();
         } else if (area.isRunning()) {
@@ -33,6 +35,7 @@ public class LetterDestroyer implements KeyListener {
                 i -= 32;
             }
             area.killLetters(Character.toChars(i)[0]);
+            System.out.println("SD");
         }
     }
 
