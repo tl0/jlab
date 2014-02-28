@@ -41,7 +41,7 @@ public class PlayArea {
         health = 5;
         points = 0;
         hs = new HighscoreSaver();
-        hscore = hs.getHScore();
+        hscore = hs.getHScore(mode);
         timer = new Timer(1000 / 20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,7 +105,7 @@ public class PlayArea {
 
         if (gameEnded()) {
             timer.stop();
-            hs.saveScore(points);
+            hs.saveScore(mode, points);
         }
 
         oldSize = area.getSize();
@@ -134,7 +134,7 @@ public class PlayArea {
     public void restartGame() {
         this.points = 0;
         this.health = 5;
-        this.hscore = hs.getHScore();
+        this.hscore = hs.getHScore(mode);
         letters.clear();
         killQueue.clear();
         timer.start();

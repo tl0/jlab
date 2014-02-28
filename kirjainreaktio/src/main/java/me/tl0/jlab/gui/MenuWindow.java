@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import me.tl0.jlab.logic.HighscoreSaver;
 import me.tl0.jlab.logic.Mode;
 
 /**
@@ -26,8 +27,10 @@ public class MenuWindow extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private GameWindow window;
+    private HighscoreSaver hs;
 
     public MenuWindow() {
+        this.hs = new HighscoreSaver();
         createElements();
     }
 
@@ -45,12 +48,10 @@ public class MenuWindow extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 100, 0, 100);
-        this.add(createButton("Number", Mode.NUMBER));
-
-        this.add(createButton("Letter", Mode.LETTER));
-
+        this.add(createButton("Number (" + hs.getHScore(Mode.NUMBER) + ")", Mode.NUMBER));
+        this.add(createButton("Letter (" + hs.getHScore(Mode.LETTER) + ")", Mode.LETTER));
         gbc.gridx++;
-        this.add(createButton("Word", Mode.WORD));
+        this.add(createButton("Word (" + hs.getHScore(Mode.WORD) + ")", Mode.WORD));
 
         this.add(new JPanel(), gbc);
         setVisible(true);
