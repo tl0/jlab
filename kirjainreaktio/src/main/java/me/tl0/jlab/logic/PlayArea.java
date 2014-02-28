@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.Timer;
+import me.tl0.jlab.gui.GameWindow;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
@@ -29,6 +30,7 @@ public class PlayArea {
     PlayAreaGUI area;
     Mode mode;
     Dimension oldSize;
+    GameWindow window;
 
     public PlayArea() {
 
@@ -53,10 +55,9 @@ public class PlayArea {
         oldSize = area.getSize();
     }
 
-    public PlayArea(Mode gamemode) {
-        this();
-        this.mode = gamemode;
-        restartGame();
+    public PlayArea(GameWindow win) {
+        super();
+        window = win;
     }
 
     /**
@@ -106,6 +107,7 @@ public class PlayArea {
         if (gameEnded()) {
             timer.stop();
             hs.saveScore(mode, points);
+            area.repaint();
         }
 
         oldSize = area.getSize();

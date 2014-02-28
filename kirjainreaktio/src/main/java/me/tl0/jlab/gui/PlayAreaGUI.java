@@ -41,7 +41,7 @@ public class PlayAreaGUI extends JPanel {
     /**
      * Paints PlayAreaGUI and it's letters correctly
      *
-     * TODO Clean and refactor (split)
+     * TODO Hirviö =O Do somthng
      *
      * @param g Graphics
      */

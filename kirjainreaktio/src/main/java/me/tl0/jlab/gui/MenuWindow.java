@@ -3,6 +3,7 @@ package me.tl0.jlab.gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class MenuWindow extends JPanel {
 
     private GameWindow window;
     private HighscoreSaver hs;
+    Image background;
 
     public MenuWindow() {
         this.hs = new HighscoreSaver();
