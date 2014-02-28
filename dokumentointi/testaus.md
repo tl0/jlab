@@ -32,3 +32,6 @@ Bugit, jotka vielä elävät \>:(
 
 -   Menussa olevat highscore -pisteet eivät päivity kun palataan pelistä
     päävalikkoon
+
+-   Numeromoodissa numpadin näppäimet ei toimi, ei ainakaan joskus toiminut
+    Windowsilla(?)

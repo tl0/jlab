@@ -1,7 +1,7 @@
 Kirjainreaktiojuttu - Ohjeet
 ============================
 
-ks. [[]Aihemäärittely](aihe.md)
+ks. [Aihemäärittely](aihe.md)
 
 Yksinkertaisesti
 ----------------
