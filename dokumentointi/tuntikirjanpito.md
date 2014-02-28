@@ -1,7 +1,7 @@
 Tuntikirjanpito
 ===============
 | PVM     | Aika  | Kuvaus                                                            |
-| ------- |:-----:| -----------------------------------------------------------------:|
+| ------- |:------|:------------------------------------------------------------------|
 | 15.1.14 | 2h    | Ensimmäisen testiversion ohjelmointi                              |
 | 16.1.14 | 15min | DL1: GitHub, labtool ja dokumentteja                              |
 | 23.1.14 | 2,5h  | DL2: Lisäohjelmointia, luokkakaavio ja testauksen aloittelua      |
