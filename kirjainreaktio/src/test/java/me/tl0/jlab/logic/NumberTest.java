@@ -15,6 +15,6 @@ public class NumberTest {
 
     @Test
     public void containsNumber() {
-        assertTrue(Integer.parseInt(n.getContent().toString()) >= 1 && Integer.parseInt(n.getContent().toString()) <= 9);
+        assertTrue(Integer.parseInt(n.getContent().toString()) >= 0 && Integer.parseInt(n.getContent().toString()) <= 9);
     }
 }

@@ -52,7 +52,6 @@ public class GameWindow extends JFrame {
         this.addKeyListener(keyListener);
         this.addMouseListener(clickListener);
 
-        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocation(100, 100);
         this.pack();
