@@ -1,6 +1,7 @@
 package me.tl0.jlab.logic;
 
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -50,6 +51,31 @@ public class LetterTest {
             }
         }
         assertTrue(true);
+
+    }
+
+    /**
+     * Tää on ärsyttävä ja bugaa välil... Etenkin jos menee suoraa sivuille
+     */
+    @Test
+    public void movesAlongX() {
+        int x = l.getX();
+        for (int i = 0; i < 400; i++) {
+            l.move();
+        }
+        assertTrue(x != l.getX());
+    }
+
+    /**
+     * Tää on ärsyttävä ja bugaa välil... Etenkin jos menee suoraa ylös/alas
+     */
+    @Test
+    public void movesAlongY() {
+        int x = l.getY();
+        for (int i = 0; i < 400; i++) {
+            l.move();
+        }
+        assertTrue(x != l.getY());
     }
 
     @Test
@@ -69,5 +95,30 @@ public class LetterTest {
     @Test
     public void toStringTest() {
         assertTrue(!l.toString().isEmpty());
+    }
+
+    @Test
+    public void valueIsRight() {
+        assertEquals(1, l.getValue());
+    }
+
+    @Test
+    public void typedContentEmpty() {
+        assertEquals("", l.getTypedContent());
+    }
+
+    @Test
+    public void getWidthIs30InLetter() {
+        assertEquals(30, l.getWidth());
+    }
+
+    @Test
+    public void getX() {
+        assertTrue(l.getX() != 0);
+    }
+
+    @Test
+    public void getY() {
+        assertTrue(l.getY() != 0);
     }
 }

@@ -23,6 +23,9 @@ public class HighscoreSaver {
     File file;
     private final String seperator = ";";
 
+    /**
+     * If file doesn't exist, creates "dummy" -file with all scores on zero
+     */
     public HighscoreSaver() {
         file = new File("highscores.txt");
         if (!file.exists()) {
@@ -79,6 +82,11 @@ public class HighscoreSaver {
         return 0;
     }
 
+    /**
+     * Writes lines to file
+     *
+     * @param lines
+     */
     private void saveLines(String lines[]) {
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
@@ -94,6 +102,11 @@ public class HighscoreSaver {
         }
     }
 
+    /**
+     * Read lines from file
+     *
+     * @return
+     */
     private String[] getLines() {
         String lines[] = new String[3];
         int j = 0;

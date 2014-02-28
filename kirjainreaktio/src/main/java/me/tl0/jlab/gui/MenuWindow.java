@@ -41,6 +41,11 @@ public class MenuWindow extends JPanel {
         this.window = gw;
     }
 
+    /**
+     * Creates menu elements
+     *
+     * TODO Logo?
+     */
     public void createElements() {
         this.setLayout(new GridBagLayout());
 
@@ -59,6 +64,14 @@ public class MenuWindow extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * I personally dont like default look of JButtons... This is little way to
+     * make them more.. beatiful? Also takes care of ActionListener..
+     *
+     * @param text
+     * @param gamemode
+     * @return
+     */
     public JButton createButton(String text, final Mode gamemode) {
         JButton temp = new JButton(text);
         temp.addActionListener(new ActionListener() {

@@ -3,6 +3,9 @@ package me.tl0.jlab.logic;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
+ * PlayObject is object that floats on PlayArea
+ *
+ * Just implement this to add new
  *
  * @author Teemu
  */
@@ -33,5 +36,5 @@ public interface PlayObject {
 
     public void addTypedLetter(char input); // Just for words ..
 
-    public Object getTypedContent(); // Just for words .. aswell ..
+    public Object getTypedContent(); // Just for words .. aswell .. Shows current progress
 }

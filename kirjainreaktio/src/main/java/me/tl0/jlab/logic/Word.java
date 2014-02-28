@@ -11,6 +11,7 @@ import java.util.Random;
 import me.tl0.jlab.gui.PlayAreaGUI;
 
 /**
+ * Represents word ingame
  *
  * @author Teemu
  */
@@ -48,6 +49,11 @@ public class Word implements PlayObject {
         this.area = area;
     }
 
+    /**
+     * Keeps track of current progress in typing word
+     *
+     * @param input
+     */
     @Override
     public void addTypedLetter(char input) {
         if (Character.toUpperCase(c.charAt(typed.length())) == Character.toUpperCase(input)) {

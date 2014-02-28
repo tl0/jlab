@@ -59,6 +59,12 @@ public class GameWindow extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Changes CardLayout to show PlayArea and sets Mode correctly and starts
+     * game.
+     *
+     * @param gamemode
+     */
     public void startGame(Mode gamemode) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "game");
@@ -68,6 +74,9 @@ public class GameWindow extends JFrame {
         this.revalidate();
     }
 
+    /**
+     * Changes CardLayout to show menu
+     */
     public void showMenu() {
         CardLayout cl = (CardLayout) (cards.getLayout());
         if (area.gameEnded()) {

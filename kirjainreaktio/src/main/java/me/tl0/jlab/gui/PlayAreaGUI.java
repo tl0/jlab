@@ -29,6 +29,7 @@ public class PlayAreaGUI extends JPanel {
         this.redStage = 0;
         final PlayAreaGUI joo = this;
 
+        // Handles that PlayObject's are positioned somewhat correctly according new size
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -40,7 +41,7 @@ public class PlayAreaGUI extends JPanel {
     /**
      * Paints PlayAreaGUI and it's letters correctly
      *
-     * TODO Hirviö =O Do somthng
+     * TODO Hirviö koodia =O Do somthng
      *
      * @param g Graphics
      */
@@ -90,6 +91,9 @@ public class PlayAreaGUI extends JPanel {
         }
     }
 
+    /**
+     * Method that triggers flashing screen
+     */
     public void flashRed() {
         if (redStage <= 1) {
             redStage = 100;

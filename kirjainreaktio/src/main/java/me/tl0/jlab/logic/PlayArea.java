@@ -32,6 +32,9 @@ public class PlayArea {
     Dimension oldSize;
     GameWindow window;
 
+    /**
+     * Constructor Initializes all variables and other stuff
+     */
     public PlayArea() {
 
         this.mode = Mode.LETTER; // Game Mode :D
@@ -79,6 +82,10 @@ public class PlayArea {
     /**
      * Timer calls this method and this handles of spawning new letters and
      * repainting PlayArea
+     *
+     * Represents one tick ingame
+     *
+     * TODO Clean
      */
     public void tick() {
         spawnLetter();
@@ -116,7 +123,7 @@ public class PlayArea {
     }
 
     /**
-     * Creates new Letter
+     * Creates new Letter if conditions are met
      */
     public void spawnLetter() {
         if (getLetterCount() < maxLetters && (System.currentTimeMillis() - lastSpawned > 753 || letters.size() < 1)) {
@@ -149,24 +156,46 @@ public class PlayArea {
         pauseGame(timer.isRunning());
     }
 
+    /**
+     * Actually stops and starts timer based on variable
+     *
+     * @param pause true means pause
+     */
     public void pauseGame(boolean pause) {
         if (pause) {
             timer.stop();
         } else {
             timer.start();
         }
-        area.repaint();
+        area.repaint(); // For that Pause text :)
     }
 
+    /**
+     * Returns if timer is running
+     *
+     * @return Timer status
+     */
     public boolean isRunning() {
         return timer.isRunning();
     }
 
+    /**
+     * Sets gamemode and restarts game
+     *
+     * @param gm New gamemode
+     */
     public void setGamemode(Mode gm) {
         this.mode = gm;
         restartGame();
     }
 
+    /**
+     * If playarea was resized, this is what it calls
+     *
+     * Handles about setting PlayObjects somewhat correctly
+     *
+     * @param newSize
+     */
     public void resized(Dimension newSize) {
         int scaleX = (int) ((newSize.getWidth() - oldSize.getWidth()) * 0.05);
         int scaleY = (int) ((newSize.getHeight() - oldSize.getHeight()) * 0.05);
@@ -188,6 +217,13 @@ public class PlayArea {
         return letters.size();
     }
 
+    /**
+     * Increases points based on letter value and removes it
+     *
+     * Word = Lenght of word Letter = 1
+     *
+     * @param letter
+     */
     public void removeLetter(PlayObject letter) {
         points += letter.getValue();
         letters.remove(letter);
@@ -205,8 +241,16 @@ public class PlayArea {
         return points;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public boolean gameEnded() {

@@ -5,13 +5,17 @@
  */
 package me.tl0.jlab.logic;
 
-import java.util.Random;
-
 /**
+ * This was so easy to do add, since this new Mode enums
+ *
+ * Just extends Letter and replaces content with number :D Simple and working :)
+ *
+ * Keypad doesn't work for these though... Not on Windows for sure.
  *
  * @author Teemu
  */
 public class Number extends Letter {
+
     public Number() {
         super();
         this.setContent(Character.toChars(random.nextInt(10) + 48)[0]);

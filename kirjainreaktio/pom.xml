@@ -60,10 +60,10 @@
                 <artifactId>pitest-maven</artifactId>
                 <configuration>
                     <targetClasses>
-                        <param>me.tl0.jlab.logic*</param>
+                        <param>me.tl0.jlab.logic**</param>
                     </targetClasses>
                     <targetTests>
-                        <param>me.tl0.jlab.logic*</param>
+                        <param>me.tl0.jlab.logic**</param>
                     </targetTests>
                 </configuration>
                 <version>0.30</version>
